@@ -20,7 +20,7 @@ namespace DeleteFiles
       var modele = new List<string> { "thumbs.db" };
       listBoxFilesDeleted.Items.Clear();
       listBoxDrivesUsed.Items.Clear();
-      foreach (var searchFile in SearchFiles(modele))
+      foreach (FileInfo searchFile in SearchFiles(modele))
       {
         if (searchFile != null)
         {
