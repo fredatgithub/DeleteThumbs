@@ -7,7 +7,7 @@ namespace DeleteThumbs
 {
   internal class Program
   {
-    private static void Main()
+    private static void Main(string[] arguments)
     {
       Action<string> Display = Console.WriteLine;
       var modele = new List<string> { "thumbs.db" };
