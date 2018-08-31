@@ -41,7 +41,7 @@
       this.buttonDeleteFiles.TabIndex = 0;
       this.buttonDeleteFiles.Text = "Delete";
       this.buttonDeleteFiles.UseVisualStyleBackColor = true;
-      this.buttonDeleteFiles.Click += new System.EventHandler(this.buttonDeleteFiles_Click);
+      this.buttonDeleteFiles.Click += new System.EventHandler(this.ButtonDeleteFiles_Click);
       // 
       // listBoxFilesDeleted
       // 
@@ -63,7 +63,7 @@
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(1265, 593);
+      this.ClientSize = new System.Drawing.Size(638, 542);
       this.Controls.Add(this.listBoxDrivesUsed);
       this.Controls.Add(this.listBoxFilesDeleted);
       this.Controls.Add(this.buttonDeleteFiles);

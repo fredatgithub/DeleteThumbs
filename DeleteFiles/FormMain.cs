@@ -11,10 +11,12 @@ namespace DeleteFiles
     public FormMain()
     {
       InitializeComponent();
+      // Initialize other variables if needed
     }
 
-    private void buttonDeleteFiles_Click(object sender, EventArgs e)
+    private void ButtonDeleteFiles_Click(object sender, EventArgs e)
     {
+      Action<string> Display = Console.WriteLine;
       var modele = new List<string> { "thumbs.db" };
       listBoxFilesDeleted.Items.Clear();
       listBoxDrivesUsed.Items.Clear();
@@ -22,7 +24,7 @@ namespace DeleteFiles
       {
         if (searchFile != null)
         {
-          Console.WriteLine(searchFile);
+          Display(searchFile.ToString());
           if (searchFile.DirectoryName != null)
           {
             listBoxFilesDeleted.Items.Add(string.Format(Path.Combine(searchFile.DirectoryName, searchFile.Name)));
@@ -32,7 +34,7 @@ namespace DeleteFiles
             }
             catch (Exception exception)
             {
-              Console.WriteLine(exception.Message);
+              Display(exception.Message);
             }
           }
         }
@@ -52,7 +54,6 @@ namespace DeleteFiles
     public static List<FileInfo> SearchFiles(List<string> patternsList)
     {
       var files = new List<FileInfo>();
-
       foreach (DriveInfo drive in DriveInfo.GetDrives().Where(drive => drive.DriveType != DriveType.CDRom).Where(drive => drive.DriveType != DriveType.Network).Where(drive => drive.DriveType != DriveType.Removable))
       {
         var dirs = from dir in drive.RootDirectory.EnumerateDirectories()
@@ -75,13 +76,14 @@ namespace DeleteFiles
                 }
                 catch (UnauthorizedAccessException)
                 {
-
+                  // ignore
                 }
               }
             }
           }
           catch (UnauthorizedAccessException)
           {
+            // ignore
           }
         }
       }
