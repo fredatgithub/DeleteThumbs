@@ -9,16 +9,18 @@ namespace DeleteThumbs
   {
     private static void Main()
     {
+      Action<string> Display = Console.WriteLine;
       var modele = new List<string> { "thumbs.db" };
       var listeFichierEffaces = new List<string>();
+      Display("Searching for all thumbs.db file:");
       foreach (var searchFile in SearchFiles(modele))
       {
         if (searchFile != null)
         {
-          Console.WriteLine(searchFile);
+          Display(searchFile.ToString());
           if (searchFile.DirectoryName != null)
           {
-            Console.WriteLine(string.Format(Path.Combine(searchFile.DirectoryName, searchFile.Name)));
+            Display(string.Format(Path.Combine(searchFile.DirectoryName, searchFile.Name)));
             listeFichierEffaces.Add(string.Format(Path.Combine(searchFile.DirectoryName, searchFile.Name)));
             try
             {
@@ -26,7 +28,7 @@ namespace DeleteThumbs
             }
             catch (Exception exception)
             {
-              Console.WriteLine("There was an exception {0}", exception.Message);
+              Display($"There was an exception {exception.Message}");
             }
           }
         }
@@ -40,18 +42,17 @@ namespace DeleteThumbs
                   .Where(drive => drive.DriveType != DriveType.Network)
                   .Where(drive => drive.DriveType != DriveType.Removable))
       {
-        listDrives += drive.Name + " ";
+        listDrives += $"{drive.Name} ";
       }
 
-      Console.WriteLine(listDrives);
-      Console.WriteLine("Press a key to exit :");
+      Display(listDrives);
+      Display("Press a key to exit :");
       Console.ReadKey();
     }
 
     public static List<FileInfo> SearchFiles(List<string> patternsList)
     {
       var files = new List<FileInfo>();
-
       foreach (DriveInfo drive in DriveInfo.GetDrives().Where(drive => drive.DriveType != DriveType.CDRom).Where(drive => drive.DriveType != DriveType.Network).Where(drive => drive.DriveType != DriveType.Removable))
       {
         var dirs = from dir in drive.RootDirectory.EnumerateDirectories()
@@ -74,13 +75,14 @@ namespace DeleteThumbs
                 }
                 catch (UnauthorizedAccessException)
                 {
-
+                  // ignore
                 }
               }
             }
           }
           catch (UnauthorizedAccessException)
           {
+            // ignore
           }
         }
       }
