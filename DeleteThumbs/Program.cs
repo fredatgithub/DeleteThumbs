@@ -13,15 +13,17 @@ namespace DeleteThumbs
       var modele = new List<string> { "thumbs.db" };
       var listeFichierEffaces = new List<string>();
       Display("Searching for all thumbs.db file:");
+      int fileCount = 0;
       foreach (var searchFile in SearchFiles(modele))
       {
+        fileCount++;
         if (searchFile != null)
         {
           Display(searchFile.ToString());
           if (searchFile.DirectoryName != null)
           {
-            Display(string.Format(Path.Combine(searchFile.DirectoryName, searchFile.Name)));
-            listeFichierEffaces.Add(string.Format(Path.Combine(searchFile.DirectoryName, searchFile.Name)));
+            Display(Path.Combine(searchFile.DirectoryName, searchFile.Name));
+            listeFichierEffaces.Add(Path.Combine(searchFile.DirectoryName, searchFile.Name));
             try
             {
               File.Delete(string.Format(Path.Combine(searchFile.DirectoryName, searchFile.Name)));
@@ -45,7 +47,8 @@ namespace DeleteThumbs
         listDrives += $"{drive.Name} ";
       }
 
-      Display(listDrives);
+      Display($"list of drives: {listDrives}");
+      Display($"Number of files schecked: {fileCount}");
       Display("Press a key to exit :");
       Console.ReadKey();
     }
